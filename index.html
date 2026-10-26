@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101114">
+  <meta name="description" content="Официальный центр поддержки Prometheus VPN: инструкции, решение проблем и ответы на частые вопросы.">
+  <title>Prometheus — Центр поддержки</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101114;
+      --panel: #17191e;
+      --panel-2: #1d2027;
+      --line: #2b2e36;
+      --text: #f4f4f5;
+      --muted: #a3a7b2;
+      --accent: #ff7849;
+      --accent-2: #ffb36b;
+      --green: #75d6a0;
+      --radius: 18px;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 75% -15%, rgba(255,120,73,.12), transparent 42%),
+        var(--bg);
+      color: var(--text);
+      font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { color: #ffd0a7; }
+    button, input { font: inherit; }
+    button, a, summary { -webkit-tap-highlight-color: transparent; }
+    .wrap { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      background: rgba(16,17,20,.86); backdrop-filter: blur(16px);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 22px; min-height: 74px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--text); font-weight: 800; letter-spacing: .02em; }
+    .brand-mark {
+      display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px;
+      color: #171114; font-size: 21px; background: linear-gradient(145deg, var(--accent-2), var(--accent));
+      box-shadow: 0 7px 24px rgba(255,120,73,.22);
+    }
+    .brand small { display: block; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .18em; }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; }
+    .navlinks a { color: #c6c8cf; font-size: 13px; font-weight: 650; }
+    .navlinks a:hover { color: var(--accent-2); }
+    .menu-button { display: none; border: 1px solid var(--line); border-radius: 10px; padding: 8px 11px; color: var(--text); background: var(--panel); }
+    .hero { padding: 86px 0 56px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--accent-2); font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--accent); }
+    h1 { max-width: 780px; margin: 18px 0 18px; font-size: clamp(42px, 7vw, 76px); line-height: 1.03; letter-spacing: -.055em; }
+    h1 span { color: var(--accent); }
+    .hero p { max-width: 660px; color: #b3b6c0; font-size: clamp(16px, 2vw, 19px); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 46px; padding: 0 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); color: var(--text); font-weight: 750; font-size: 14px; transition: transform .18s, border-color .18s; cursor: pointer; }
+    .btn:hover { transform: translateY(-2px); border-color: #555965; color: white; }
+    .btn.primary { border-color: transparent; color: #21130e; background: linear-gradient(135deg, var(--accent-2), var(--accent)); }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 36px; color: var(--muted); font-size: 12px; }
+    .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px rgba(117,214,160,.5); }
+    .section { padding: 48px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+    .section-head h2 { margin: 0; font-size: clamp(27px, 4vw, 38px); letter-spacing: -.035em; line-height: 1.15; }
+    .section-head p { max-width: 520px; margin: 8px 0 0; color: var(--muted); }
+    .kicker { margin-bottom: 9px; color: var(--accent); font-size: 11px; font-weight: 850; letter-spacing: .16em; text-transform: uppercase; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .card { min-width: 0; padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(145deg, rgba(255,255,255,.025), transparent 70%), var(--panel); }
+    .card-icon { display: grid; place-items: center; width: 43px; height: 43px; margin-bottom: 18px; border: 1px solid rgba(255,120,73,.22); border-radius: 13px; background: rgba(255,120,73,.09); font-size: 20px; }
+    .card h3 { margin: 0 0 7px; font-size: 18px; letter-spacing: -.02em; }
+    .card p { margin: 0; color: var(--muted); font-size: 14px; }
+    .card .text-link { display: inline-block; margin-top: 17px; font-size: 13px; font-weight: 750; }
+    .notice { display: flex; align-items: flex-start; gap: 13px; margin-top: 18px; padding: 17px 19px; border: 1px solid rgba(255,179,107,.18); border-radius: 14px; background: rgba(255,179,107,.055); color: #d7d0c8; font-size: 13px; }
+    .notice strong { color: var(--accent-2); }
+    .platforms { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .platform { padding: 19px; border: 1px solid var(--line); border-radius: 15px; background: var(--panel); }
+    .platform .symbol { font-size: 24px; }
+    .platform h3 { margin: 8px 0 4px; font-size: 16px; }
+    .platform p { min-height: 42px; margin: 0; color: var(--muted); font-size: 12px; }
+    .platform button { width: 100%; margin-top: 14px; }
+    .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; counter-reset: steps; }
+    .step { position: relative; padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); counter-increment: steps; }
+    .step::before { content: "0" counter(steps); display: block; margin-bottom: 15px; color: var(--accent); font-size: 12px; font-weight: 900; letter-spacing: .12em; }
+    .step h3 { margin: 0 0 8px; font-size: 17px; }
+    .step p { margin: 0; color: var(--muted); font-size: 14px; }
+    .status-panel { padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .status-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 18px; }
+    .status-top h3 { margin: 0; font-size: 19px; }
+    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid rgba(255,179,107,.22); border-radius: 999px; color: var(--accent-2); background: rgba(255,179,107,.07); font-size: 11px; font-weight: 800; }
+    .status-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 14px 0; border-top: 1px solid var(--line); font-size: 14px; }
+    .status-row span:last-child { color: var(--muted); font-size: 12px; }
+    .status-foot { margin: 16px 0 0; color: var(--muted); font-size: 12px; }
+    .faq { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    details { padding: 18px 20px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
+    summary { display: flex; justify-content: space-between; gap: 14px; cursor: pointer; list-style: none; font-size: 14px; font-weight: 750; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; color: var(--accent); font-size: 20px; line-height: 1; }
+    details[open] summary::after { content: "−"; }
+    details p { margin: 13px 0 0; color: var(--muted); font-size: 13px; }
+    .support-box { display: grid; grid-template-columns: 1.3fr .7fr; gap: 24px; align-items: center; padding: clamp(24px, 5vw, 42px); border: 1px solid rgba(255,120,73,.25); border-radius: 22px; background: radial-gradient(ellipse at 100% 0%, rgba(255,120,73,.12), transparent 45%), var(--panel); }
+    .support-box h2 { margin: 0 0 10px; font-size: clamp(26px, 4vw, 36px); letter-spacing: -.04em; }
+    .support-box p { margin: 0; color: var(--muted); }
+    .contact-actions { display: grid; gap: 10px; }
+    .contact-actions .btn { width: 100%; }
+    footer { margin-top: 55px; padding: 25px 0 35px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-brand { color: var(--text); font-weight: 800; }
+    .small { font-size: 11px; color: #777c88; }
+    .search-wrap { margin-bottom: 16px; }
+    .search { width: 100%; padding: 13px 15px; border: 1px solid var(--line); border-radius: 12px; outline: none; color: var(--text); background: var(--panel); }
+    .search:focus { border-color: var(--accent); }
+    .empty { display: none; padding: 20px; color: var(--muted); text-align: center; }
+    @media (max-width: 850px) {
+      .navlinks { gap: 13px; }
+      .navlinks a { font-size: 12px; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .platforms { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .steps { grid-template-columns: 1fr; }
+      .support-box { grid-template-columns: 1fr; }
+      .contact-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(var(--max), calc(100% - 28px)); }
+      .nav { min-height: 66px; flex-wrap: wrap; padding: 10px 0; }
+      .menu-button { display: inline-flex; }
+      .navlinks { display: none; width: 100%; padding: 8px 0 12px; }
+      .navlinks.open { display: flex; }
+      .navlinks a { width: calc(50% - 8px); padding: 5px 0; font-size: 13px; }
+      .hero { padding: 58px 0 36px; }
+      .hero-meta { gap: 11px; }
+      .section { padding: 35px 0; }
+      .section-head { display: block; }
+      .grid, .faq { grid-template-columns: 1fr; }
+      .platforms { gap: 9px; }
+      .platform { padding: 14px; }
+      .platform p { min-height: 0; }
+      .contact-actions { grid-template-columns: 1fr; }
+      .status-panel { padding: 18px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="Prometheus — главная">
+        <span class="brand-mark">ϟ</span>
+        <span>PROMETHEUS<small>VPN · SUPPORT CENTER</small></span>
+      </a>
+      <button class="menu-button" id="menuButton" aria-expanded="false" aria-controls="navlinks">☰ Меню</button>
+      <nav class="navlinks" id="navlinks" aria-label="Основная навигация">
+        <a href="#connect">Подключение</a>
+        <a href="#troubleshooting">Проблемы</a>
+        <a href="#status">Статус серверов</a>
+        <a href="#faq">FAQ</a>
+        <a href="#support">Поддержка</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow">Центр поддержки Prometheus</div>
+        <h1>Интернет без<br><span>лишних преград.</span></h1>
+        <p>Всё необходимое для настройки Prometheus VPN: понятные инструкции, помощь при подключении и ответы на частые вопросы.</p>
+        <div class="actions">
+          <a class="btn primary" href="#connect">Начать подключение <span aria-hidden="true">↗</span></a>
+          <a class="btn" href="#troubleshooting">Не работает VPN?</a>
+        </div>
+        <div class="hero-meta">
+          <span><i class="dot"></i> Инструкции в одном месте</span>
+          <span>◈ Для компьютеров и телефонов</span>
+          <span>⌁ Просто и по делу</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="connect">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">01 / Подключение</div><h2>Настройка за несколько шагов</h2></div>
+          <p>Выберите своё устройство. Названия клиентов и способ импорта могут отличаться в зависимости от конфигурации, которую вы получили.</p>
+        </div>
+        <div class="platforms">
+          <article class="platform">
+            <div class="symbol" aria-hidden="true">▣</div><h3>Windows</h3>
+            <p>Установка клиента и импорт конфигурации.</p>
+            <button class="btn" data-guide="windows">Открыть инструкцию ↗</button>
+          </article>
+          <article class="platform">
+            <div class="symbol" aria-hidden="true">◉</div><h3>Android</h3>
+            <p>Подключение на телефоне или планшете.</p>
+            <button class="btn" data-guide="android">Открыть инструкцию ↗</button>
+          </article>
+          <article class="platform">
+            <div class="symbol" aria-hidden="true">◌</div><h3>iPhone / iPad</h3>
+            <p>Настройка клиента на устройствах Apple.</p>
+            <button class="btn" data-guide="ios">Открыть инструкцию ↗</button>
+          </article>
+          <article class="platform">
+            <div class="symbol" aria-hidden="true">⌘</div><h3>macOS</h3>
+            <p>Подключение на компьютере Mac.</p>
+            <button class="btn" data-guide="macos">Открыть инструкцию ↗</button>
+          </article>
+        </div>
+        <div class="notice"><span aria-hidden="true">ⓘ</span><div><strong>Важно:</strong> используйте только клиент и конфигурацию, рекомендованные администратором Prometheus. Никогда не публикуйте свою ссылку подписки, QR-код, UUID или файл конфигурации в открытых чатах.</div></div>
+      </div>
+    </section>
+
+    <section class="section" id="troubleshooting">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">02 / Диагностика</div><h2>Что-то пошло не так?</h2></div>
+          <p>Пройдите базовые проверки по порядку, прежде чем переустанавливать клиент или менять настройки.</p>
+        </div>
+        <div class="grid">
+          <article class="card"><div class="card-icon">⏻</div><h3>Не подключается</h3><p>Проверьте интернет без VPN, обновите подписку и убедитесь, что выбран нужный сервер. Перезапустите клиент.</p><a class="text-link" href="#faq">Посмотреть FAQ →</a></article>
+          <article class="card"><div class="card-icon">↯</div><h3>Низкая скорость</h3><p>Попробуйте другой доступный сервер, отключите параллельные загрузки и проверьте скорость без VPN для сравнения.</p><a class="text-link" href="#support">Нужна помощь? →</a></article>
+          <article class="card"><div class="card-icon">◎</div><h3>Не открываются сайты</h3><p>Проверьте, работает ли проблема в нескольких браузерах. Перезапустите соединение и проверьте настройки DNS клиента.</p><a class="text-link" href="#faq">Посмотреть FAQ →</a></article>
+          <article class="card"><div class="card-icon">⟳</div><h3>Подписка не обновляется</h3><p>Проверьте интернет, дату и время устройства, затем повторите обновление. Если ошибка сохраняется — обратитесь в поддержку.</p><a class="text-link" href="#support">Связаться →</a></article>
+          <article class="card"><div class="card-icon">▤</div><h3>Ошибка импорта</h3><p>Убедитесь, что ссылка или файл предназначены для используемого клиента. Не отправляйте секретную конфигурацию публично.</p><a class="text-link" href="#support">Связаться →</a></article>
+          <article class="card"><div class="card-icon">⌁</div><h3>VPN сразу отключается</h3><p>Проверьте разрешение на VPN-подключение, отключите конфликтующие VPN-приложения и повторите попытку.</p><a class="text-link" href="#faq">Посмотреть FAQ →</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="status">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">03 / Инфраструктура</div><h2>Статус серверов</h2></div>
+          <p>На этой странице пока не подключена автоматическая проверка серверов. Не считайте отображаемый блок подтверждением работоспособности VPN.</p>
+        </div>
+        <div class="status-panel">
+          <div class="status-top">
+            <h3>Состояние сервиса</h3>
+            <span class="pill"><span>●</span> Мониторинг не подключён</span>
+          </div>
+          <div class="status-row"><span>VPN-подключения</span><span>Нет данных</span></div>
+          <div class="status-row"><span>Обновление подписок</span><span>Нет данных</span></div>
+          <div class="status-row"><span>Центр поддержки</span><span>Страница доступна отдельно от VPN</span></div>
+          <p class="status-foot">Последнее обновление: статический статус. Для актуальной информации свяжитесь с поддержкой. Автоматический мониторинг можно добавить позже через отдельный сервис статуса.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">04 / FAQ</div><h2>Частые вопросы</h2></div>
+          <p>Не нашли ответ? Напишите в поддержку и укажите устройство, название клиента и текст ошибки — без секретных данных.</p>
+        </div>
+        <div class="search-wrap"><input class="search" id="faqSearch" type="search" placeholder="Поиск по вопросам…" aria-label="Поиск по вопросам"></div>
+        <div class="faq" id="faqList">
+          <details><summary>Как подключить Prometheus VPN?</summary><p>Получите от администратора данные для подключения, установите рекомендованный клиент для своего устройства и импортируйте конфигурацию способом, указанным в инструкции. После импорта выберите профиль и подключитесь.</p></details>
+          <details><summary>Где взять ссылку подписки или конфигурацию?</summary><p>Получите её у администратора Prometheus через официальный канал выдачи доступа. Не публикуйте ссылку подписки и не передавайте её посторонним: она может давать доступ к вашему подключению.</p></details>
+          <details><summary>Почему VPN подключён, но сайты не открываются?</summary><p>Проверьте, открываются ли сайты без VPN, попробуйте другой сервер и перезапустите клиент. Если не помогло, сообщите поддержке время ошибки и её текст.</p></details>
+          <details><summary>Можно ли использовать VPN на нескольких устройствах?</summary><p>Это зависит от правил вашей подписки. Уточните лимит устройств у администратора Prometheus.</p></details>
+          <details><summary>Что отправить в поддержку при ошибке?</summary><p>Укажите операционную систему, название и версию клиента, примерное время ошибки и текст сообщения. Не отправляйте пароли, UUID, QR-коды, приватные ключи и полную ссылку подписки.</p></details>
+          <details><summary>Почему скорость через VPN ниже?</summary><p>На скорость влияют расстояние до сервера, нагрузка, качество исходного подключения и выбранный протокол. Сравните скорость без VPN и с несколькими доступными серверами.</p></details>
+          <details><summary>Нужно ли отключать другие VPN-приложения?</summary><p>Обычно два VPN-клиента одновременно могут конфликтовать за системный VPN-интерфейс или маршрутизацию. Для диагностики отключите остальные VPN-клиенты и повторите подключение.</p></details>
+          <details><summary>Что делать, если подписка перестала обновляться?</summary><p>Проверьте доступ в интернет, дату и время устройства, затем повторите обновление. Если ошибка повторяется, обратитесь в поддержку и приложите текст ошибки без самой ссылки подписки.</p></details>
+        </div>
+        <div class="empty" id="faqEmpty">Ничего не найдено. Попробуйте другие слова.</div>
+      </div>
+    </section>
+
+    <section class="section" id="support">
+      <div class="wrap">
+        <div class="support-box">
+          <div>
+            <div class="kicker">05 / Поддержка</div>
+            <h2>Мы поможем разобраться.</h2>
+            <p>Добавьте сюда официальный контакт Prometheus, чтобы пользователи могли сообщить о проблеме. Пока контакт не настроен, кнопка ниже подскажет, что нужно заменить.</p>
+          </div>
+          <div class="contact-actions">
+            <button class="btn primary" id="telegramButton">Написать в Telegram ↗</button>
+            <button class="btn" id="emailButton">Написать по email ↗</button>
+            <span class="small">Контакты настраиваются внизу файла index.html.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div><div class="footer-brand">ϟ PROMETHEUS</div><div>Центр поддержки VPN</div></div>
+      <div>© <span id="year"></span> Prometheus. Все права защищены.</div>
+      <div class="small">Не публикуйте конфиденциальные данные подключения.</div>
+    </div>
+  </footer>
+
+  <script>
+    /*
+      НАСТРОЙКА КОНТАКТОВ:
+      1. Замените TELEGRAM_URL на ссылку вашего официального Telegram-контакта.
+         Пример формата: https://t.me/your_support
+      2. Замените SUPPORT_EMAIL на ваш адрес поддержки.
+      Не вставляйте сюда ссылки подписки, UUID, пароли или приватные ключи.
+    */
+    const TELEGRAM_URL = "";
+    const SUPPORT_EMAIL = "";
+
+    const menuButton = document.getElementById("menuButton");
+    const navlinks = document.getElementById("navlinks");
+    menuButton.addEventListener("click", () => {
+      const open = navlinks.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(open));
+    });
+    navlinks.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
+      navlinks.classList.remove("open");
+      menuButton.setAttribute("aria-expanded", "false");
+    }));
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const guides = {
+      windows: "Windows: 1) Установите рекомендованный администратором VPN-клиент. 2) Импортируйте выданную конфигурацию или ссылку подписки. 3) Выберите профиль и нажмите «Подключить». 4) Откройте несколько сайтов для проверки. Название клиента и точные кнопки зависят от выданной конфигурации.",
+      android: "Android: 1) Установите рекомендованный VPN-клиент из официального источника. 2) Импортируйте конфигурацию или подписку, полученную от администратора. 3) Разрешите создание VPN-подключения в системном запросе. 4) Выберите профиль и подключитесь.",
+      ios: "iPhone / iPad: 1) Установите рекомендованный администратором клиент из App Store. 2) Импортируйте выданную конфигурацию или подписку. 3) Разрешите добавление VPN-конфигурации. 4) Включите подключение и проверьте доступ к сайтам.",
+      macos: "macOS: 1) Установите рекомендованный VPN-клиент из официального источника. 2) Импортируйте выданную конфигурацию или подписку. 3) Выберите профиль и подключитесь. 4) Проверьте работу нужных сайтов. Если у вас нестандартный клиент, запросите инструкцию у администратора."
+    };
+    document.querySelectorAll("[data-guide]").forEach(button => {
+      button.addEventListener("click", () => {
+        const guide = guides[button.dataset.guide];
+        window.alert(guide + "\n\nЕсли не получилось, обратитесь в поддержку. Не отправляйте секретную ссылку подписки или ключи.");
+      });
+    });
+
+    document.getElementById("telegramButton").addEventListener("click", () => {
+      if (TELEGRAM_URL.trim()) window.open(TELEGRAM_URL, "_blank", "noopener,noreferrer");
+      else window.alert("Контакт Telegram пока не добавлен. Откройте index.html и укажите адрес в переменной TELEGRAM_URL в конце файла.");
+    });
+    document.getElementById("emailButton").addEventListener("click", () => {
+      if (SUPPORT_EMAIL.trim()) window.location.href = "mailto:" + SUPPORT_EMAIL.trim();
+      else window.alert("Email поддержки пока не добавлен. Откройте index.html и укажите адрес в переменной SUPPORT_EMAIL в конце файла.");
+    });
+
+    const faqSearch = document.getElementById("faqSearch");
+    const faqItems = [...document.querySelectorAll("#faqList details")];
+    const faqEmpty = document.getElementById("faqEmpty");
+    faqSearch.addEventListener("input", () => {
+      const query = faqSearch.value.trim().toLocaleLowerCase("ru");
+      let visible = 0;
+      faqItems.forEach(item => {
+        const match = item.textContent.toLocaleLowerCase("ru").includes(query);
+        item.style.display = match ? "" : "none";
+        if (match) visible++;
+      });
+      faqEmpty.style.display = visible ? "none" : "block";
+    });
+  </script>
+</body>
+</html>
