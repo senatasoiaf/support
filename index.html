@@ -90,6 +90,16 @@
     .step::before { content: "0" counter(steps); display: block; margin-bottom: 15px; color: var(--accent); font-size: 12px; font-weight: 900; letter-spacing: .12em; }
     .step h3 { margin: 0 0 8px; font-size: 17px; }
     .step p { margin: 0; color: var(--muted); font-size: 14px; }
+    .flclashx-steps { display: grid; gap: 14px; }
+    .flclashx-step { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, .85fr); gap: 22px; align-items: start; padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .flclashx-step h3 { margin: 0 0 9px; font-size: 17px; }
+    .flclashx-step p { margin: 0 0 9px; color: var(--muted); font-size: 14px; }
+    .flclashx-step p:last-child { margin-bottom: 0; }
+    .flclashx-number { margin-bottom: 9px; color: var(--accent); font-size: 11px; font-weight: 900; letter-spacing: .13em; }
+    .screenshot-placeholder { display: grid; place-items: center; min-height: 185px; padding: 18px; border: 1px dashed #4b4e58; border-radius: 12px; background: var(--panel-2); color: var(--muted); text-align: center; }
+    .screenshot-placeholder .shot-icon { display: block; margin-bottom: 8px; color: var(--accent-2); font-size: 28px; }
+    .screenshot-placeholder strong { display: block; color: var(--text); font-size: 13px; }
+    .screenshot-placeholder small { display: block; margin-top: 5px; font-size: 11px; }
     .status-panel { padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
     .status-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 18px; }
     .status-top h3 { margin: 0; font-size: 19px; }
@@ -122,6 +132,7 @@
       .navlinks a { font-size: 12px; }
       .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .platforms { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .flclashx-step { grid-template-columns: 1fr; }
       .steps { grid-template-columns: 1fr; }
       .support-box { grid-template-columns: 1fr; }
       .contact-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -160,6 +171,7 @@
       <button class="menu-button" id="menuButton" aria-expanded="false" aria-controls="navlinks">☰ Меню</button>
       <nav class="navlinks" id="navlinks" aria-label="Основная навигация">
         <a href="#connect">Подключение</a>
+        <a href="#flclashx">Инструкция FlClashX</a>
         <a href="#troubleshooting">Проблемы</a>
         <a href="#status">Статус серверов</a>
         <a href="#faq">FAQ</a>
@@ -213,8 +225,34 @@
             <p>Подключение на компьютере Mac.</p>
             <button class="btn" data-guide="macos">Открыть инструкцию ↗</button>
           </article>
+          <article class="platform">
+            <div class="symbol" aria-hidden="true">⇄</div><h3>FlClashX</h3>
+            <p>Импорт профиля, выбор сервера и запуск подключения.</p>
+            <a class="btn" href="#flclashx">Открыть инструкцию ↗</a>
+          </article>
         </div>
         <div class="notice"><span aria-hidden="true">ⓘ</span><div><strong>Важно:</strong> используйте только клиент и конфигурацию, рекомендованные администратором Prometheus. Никогда не публикуйте свою ссылку подписки, QR-код, UUID или файл конфигурации в открытых чатах.</div></div>
+      </div>
+    </section>
+
+
+
+    <section class="section" id="flclashx">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">06 / Инструкция</div><h2>FlClashX: настройка Prometheus</h2></div>
+          <p>Пошаговый шаблон инструкции. Точные названия кнопок и действия добавим после подготовки скриншотов реального интерфейса.</p>
+        </div>
+        <div class="notice"><span aria-hidden="true">ⓘ</span><div><strong>Перед началом:</strong> подготовьте ссылку подписки или конфигурацию, полученную через официальный канал Prometheus. Не показывайте приватные данные на скриншотах.</div></div>
+        <div class="flclashx-steps" style="margin-top:16px">
+          <article class="flclashx-step"><div><div class="flclashx-number">ШАГ 01</div><h3>Установка и первый запуск</h3><p><strong>Что сделать:</strong> [добавить описание установки и первого запуска FlClashX].</p><p><strong>Примечание:</strong> [добавить важную подсказку для вашей версии приложения].</p></div><div class="screenshot-placeholder"><div><span class="shot-icon" aria-hidden="true">▧</span><strong>Скриншот шага 1</strong><small>Первый запуск приложения</small></div></div></article>
+          <article class="flclashx-step"><div><div class="flclashx-number">ШАГ 02</div><h3>Импорт подписки или конфигурации</h3><p><strong>Что сделать:</strong> [указать, куда нажать и какой способ импорта выбрать].</p><p><strong>Результат:</strong> [описать, как убедиться, что профиль добавлен].</p></div><div class="screenshot-placeholder"><div><span class="shot-icon" aria-hidden="true">▧</span><strong>Скриншот шага 2</strong><small>Экран импорта профиля</small></div></div></article>
+          <article class="flclashx-step"><div><div class="flclashx-number">ШАГ 03</div><h3>Выбор профиля и сервера</h3><p><strong>Что сделать:</strong> [объяснить, где находится профиль и как выбрать сервер].</p><p><strong>Проверка:</strong> [указать, что пользователь должен увидеть в приложении].</p></div><div class="screenshot-placeholder"><div><span class="shot-icon" aria-hidden="true">▧</span><strong>Скриншот шага 3</strong><small>Профиль и список серверов</small></div></div></article>
+          <article class="flclashx-step"><div><div class="flclashx-number">ШАГ 04</div><h3>Запуск подключения</h3><p><strong>Что сделать:</strong> [описать запуск соединения и системное разрешение, если оно появится].</p><p><strong>Важно:</strong> [добавить пояснение о выбранном режиме работы].</p></div><div class="screenshot-placeholder"><div><span class="shot-icon" aria-hidden="true">▧</span><strong>Скриншот шага 4</strong><small>Запуск подключения</small></div></div></article>
+          <article class="flclashx-step"><div><div class="flclashx-number">ШАГ 05</div><h3>Проверка соединения</h3><p><strong>Что сделать:</strong> [описать проверку статуса подключения и доступности сайтов].</p><p><strong>Если не работает:</strong> [добавить первые шаги диагностики].</p></div><div class="screenshot-placeholder"><div><span class="shot-icon" aria-hidden="true">▧</span><strong>Скриншот шага 5</strong><small>Активное соединение</small></div></div></article>
+          <article class="flclashx-step"><div><div class="flclashx-number">ШАГ 06</div><h3>Дополнительные настройки и решение проблем</h3><p><strong>Что сделать:</strong> [описать необходимые настройки — например, системный прокси или TUN, если они используются в вашей схеме].</p><p><strong>Типичная проблема:</strong> [добавить сообщение об ошибке и способ исправления].</p></div><div class="screenshot-placeholder"><div><span class="shot-icon" aria-hidden="true">▧</span><strong>Скриншот шага 6</strong><small>Дополнительные настройки</small></div></div></article>
+        </div>
+        <div class="notice"><span aria-hidden="true">↗</span><div><strong>Безопасность:</strong> перед публикацией скриншота скройте ссылку подписки, UUID, QR-коды и другие данные, по которым можно получить доступ к вашему подключению.</div></div>
       </div>
     </section>
 
